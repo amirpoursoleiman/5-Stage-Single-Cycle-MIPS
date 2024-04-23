@@ -1,0 +1,30 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
+
+entity MyPC is
+    port (
+      CLK : in  std_logic;
+      PCin : in  std_logic_vector(31 downto 0);
+      PCout : out std_logic_vector(31 downto 0));
+end entity MyPC;
+  
+architecture Behavioral of MyPC is
+
+signal sigpcout : std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
+begin
+
+    process(CLK)
+    begin
+        if(rising_edge(CLK)) then
+	    sigpcout <= PCin;
+	end if;
+    end process;
+
+PCout <= sigpcout;
+end architecture Behavioral;
+		
+		
+
+

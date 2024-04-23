@@ -1,0 +1,33 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity MyALU is
+    Port ( 
+      ALUInput1 : in std_logic_vector (31 downto 0);
+      ALUInput2 : in std_logic_vector (31 downto 0);
+      ALUOpperation : in std_logic;
+      ALUResult : out std_logic_vector (31 downto 0));
+end entity;
+
+architecture Behavioral of MyALU is
+ signal result : std_logic_vector (31 downto 0);
+
+begin
+		
+  process(ALUInput1,ALUInput2,ALUOpperation)
+    begin
+         		case ALUOpperation is
+			when '1' => -- Addition
+			     result <= std_logic_vector(unsigned(ALUInput1) + unsigned(ALUInput2));
+
+			when others => null; -- Nop
+			     result <= X"00000000";
+		end case;
+
+		report "ALU result is = " & integer'image(to_integer(unsigned(result)));
+
+  end process;
+  
+  ALUResult <= result;
+end architecture Behavioral;

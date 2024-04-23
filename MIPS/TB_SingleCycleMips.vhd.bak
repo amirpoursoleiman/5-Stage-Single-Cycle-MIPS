@@ -1,0 +1,30 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity MyTB_SingleCycleMips is
+end MyTB_SingleCycleMips;
+ 
+architecture behavior of MyTB_SingleCycleMips is
+ 
+    component MySingleCycleMips
+    port(
+         CLK : in std_logic);
+    end component;
+  
+    signal CLK : std_logic := '0';
+    constant CLK_period : time := 10 ns;
+ 
+begin
+ 
+          MyTB : MySingleCycleMips port map (
+          CLK => CLK);
+
+   MYCLK :process
+   begin
+   CLK <= '0';
+   wait for CLK_period/2;
+   CLK <= '1';
+   wait for CLK_period/2;
+   end process;
+
+end architecture behavior;

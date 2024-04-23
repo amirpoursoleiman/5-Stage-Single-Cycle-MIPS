@@ -1,0 +1,18 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
+
+entity MyALUControl is
+    Port (
+      aluop : in std_logic; 		
+      funct : in  std_logic_vector(5 downto 0);	  
+      alucontrol : out std_logic);	 
+end entity MyALUControl;
+
+architecture Behavior of MyALUControl is
+begin
+     alucontrol <="1";
+
+end architecture Behavior;
+

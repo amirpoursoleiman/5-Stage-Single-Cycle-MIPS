@@ -1,0 +1,71 @@
+library ieee;
+use ieee.std_logic_1164.ALL;
+use ieee.numeric_std.ALL;
+use ieee.std_logic_unsigned.ALL;
+
+entity MyRegisterFile is
+  port (
+    CLK : in std_logic;
+    RegWrite : in std_logic;
+    ReadRegister1 : in std_logic_vector(25 downto 21);  
+    ReadRegister2 : in std_logic_vector(20 downto 16);
+    WriteRegister : in std_logic_vector(15 downto 11);
+    WriteData : in std_logic_vector(31 downto 0);
+    ReadData1 : out std_logic_vector(31 downto 0);
+    ReadData2 : out std_logic_vector(31 downto 0));
+end entity MyRegisterFile;
+
+architecture Behavioral of MyRegisterFile is
+  -- Zero register: constant value 0
+  type Memory is array (0 to 31) of STD_LOGIC_VECTOR(31 downto 0);
+  signal regFile : Memory :=
+    ("00000000000000000000000000000000", -- 0
+     "00000000000000000000000000000000", -- 1
+     "00000000000000000000000000000000", -- 2
+     "00000000000000000000000000000000", -- 3
+     "00000000000000000000000000000000", -- 4
+     "00000000000000000000000000000000", -- 5
+     "00000000000000000000000000000000", -- 6
+     "00000000000000000000000000000000", -- 7
+     "00000000000000000000000000000000", -- 8
+     "00000000000000000000000000000000", -- 9
+     "00000000000000000000000000000000", -- 10
+     "00000000000000000000000000000000", -- 11
+     "00000000000000000000000000000000", -- 12
+     "00000000000000000000000000000000", -- 13
+     "00000000000000000000000000000000", -- 14
+     "00000000000000000000000000000000", -- 15
+     "00000000000000000000000000000000", -- 16
+     "00000000000000000000000000000000", -- 17
+     "00000000000000000000000000000000", -- 18
+     "00000000000000000000000000000000", -- 19
+     "00000000000000000000000000000000", -- 20
+     "00000000000000000000000000000000", -- 21
+     "00000000000000000000000000000000", -- 22
+     "00000000000000000000000000000000", -- 23
+     "00000000000000000000000000000000", -- 24
+     "00000000000000000000000000000000", -- 25
+     "00000000000000000000000000000000", -- 26
+     "00000000000000000000000000000000", -- 27
+     "00000000000000000000000000000000", -- 28
+     "00000000000000000000000000000000", -- 29
+     "00000000000000000000000000000000", -- 30
+     "00000000000000000000000000000000"); -- 31
+     -- All registers are initialized to 0
+begin
+	
+  process(CLK)
+  begin
+    if(rising_edge(CLK)) then
+	if(RegWrite = '1') then
+	    regFile(TO_INTEGER(unsigned(WriteRegister))) <= WriteData;
+	end if;
+    end if;
+  end process;
+
+  ReadData1 <= regFile(TO_INTEGER(unsigned(ReadRegister1)));
+  ReadData2 <= regFile(TO_INTEGER(unsigned(ReadRegister2)));
+
+end architecture Behavioral;
+
+
